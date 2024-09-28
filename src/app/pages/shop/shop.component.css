@@ -1,0 +1,30 @@
+.select-search-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 150px;
+    margin-bottom: 70px;
+    margin-left: 150px;
+    width: 100%;
+}
+/* .select-container{
+  
+} */
+.select-tag{
+    height: 40px;
+    width: 180px;
+    padding-left: 8px;
+    color: white;
+    background-color: #0f3460;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+.select-tag option{
+    color: black;
+    background-color: white;
+}
+
+.search-container{
+    margin-left: 200px;
+
+}

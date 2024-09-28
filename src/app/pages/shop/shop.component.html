@@ -1,0 +1,21 @@
+
+<div class="select-search-container">
+  <div class="select-container">
+  
+    <select value="select" class="select-tag" #category (change)="categoryChanged(category.value)">
+      <option selected value="shirt">Shirt</option>
+      <option  value="phone">Phone</option>
+      <option value="sofa-chair">Sofa-Chair</option>
+      <option value="watch">Watch</option>
+      <option value="jewellery">Jewellery</option>
+    </select>
+
+  </div>
+
+  <div class="search-container">
+    <app-search-bar></app-search-bar>
+  </div>
+  
+</div>
+
+<app-card [productFirstOrSecindElementOrCategoryElement]="productCategoryData" ></app-card>

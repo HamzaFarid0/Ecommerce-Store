@@ -1,0 +1,44 @@
+
+#footer{
+    display: flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    padding: 55px;
+    background-color: #232f3e;
+  }
+  #footer p, #footer a{
+    color: white;
+    text-decoration: none;
+  }
+  #footer a:hover{
+    color:#088178;
+  }
+  #footer .about a{
+    display: block;
+    padding:8px 0;
+  }
+  #footer .help a{
+    display: block;
+    padding:8px 0;
+  }
+  #footer .categories a{
+    display: block;
+    padding:8px 0;
+  }
+  
+  #footer-bottom {
+    text-align: center;
+    padding-bottom: 20px ;
+    background-color: #232f3e; /* Matches the main footer background */
+    color: rgb(109, 109, 109);
+     /* Optional: Adds a top border to separate the copyright section */
+  }
+  
+  #footer-bottom p {
+    margin: 0;
+    color: white;
+  }
+
+  h3{
+    color: white;
+  }

@@ -1,0 +1,129 @@
+.cart-container{
+    margin: 60px;
+}
+
+.cart-page{
+    margin-top: 15px;
+    
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.cart-info{
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+th{
+   text-align: start;
+   padding: 5px;
+    /* color: #fff; */
+    /* background-color: #ff523b; */
+    color: black;
+    font-weight:600;
+    font-size: 18px;
+    background-color: #232f3e;
+    color: white;
+    margin-bottom: 5px;
+}
+td{
+    padding-top: 2px;
+}
+td input{
+    width: 50px;
+    height: 30px;
+    padding: 5px;
+
+}
+td a{
+    color:  #ff523b;
+    font-size: 12px;
+}
+td img{
+    height: 100px;
+    width: 100px;
+    margin-right: 10px;
+}
+/* .cart-page td{
+
+} */
+.item-name{
+    color:  black;
+    font-weight: 500;
+}
+.item-price{
+    color:  black;
+    font-weight: 500;
+    font-size: 18px;
+}
+.total-price{
+    display: flex;
+    background-color: white;
+    width: 891px;
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+.subtotal{
+    color:  black;
+    font-weight: 600;
+    font-size: 18px;
+}
+.total-price table{
+    /* border: 3px solid #ff523b; */
+    width: 100%;
+    max-width: 891px;
+}
+td:last-child{
+    text-align: right;
+}
+th:last-child{
+    text-align: right;
+}
+
+.empty-cart{
+    height: 300px;
+    width: 1330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+}
+.empty-cart-btn{
+    height: 50px;
+    width: 120px;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.empty-cart-btn:hover{
+    background-color: rgb(32, 29, 29);
+}
+
+.cart-summary{
+  margin-left: 40px;
+height: 100px;
+width: 300px;
+/* background-color: rgb(241, 239, 239); */
+box-sizing: border-box; 
+
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+.place-order-btn{
+    width: 80%;
+    height: 30px;
+    margin: 10px;
+    background-color: rgba(255,216,20,255);
+    border-radius: 18px;
+    border: 1px solid rgba(255,216,20,255);
+    padding: auto;
+    cursor: pointer;
+    font-size: 15px;
+}

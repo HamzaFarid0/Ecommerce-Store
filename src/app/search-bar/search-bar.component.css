@@ -1,0 +1,35 @@
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* max-width: 600px;  // mai ne; */
+    width: 600px;    
+    height: 35px;
+    padding:15px;
+    border-radius: 20px;
+    background-color: white
+
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    border: none;
+    font-size: 16px;
+    color: black;
+    outline: none;
+    background:transparent;
+    
+}
+
+.search-icon {
+    position: absolute;
+    right: 0;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    right: 15px;
+    margin-top: 3px;
+    margin-right: 2px;
+}
