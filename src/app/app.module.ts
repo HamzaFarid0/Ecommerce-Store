@@ -27,8 +27,8 @@ import {NgToastModule} from "ng-angular-popup";
     BannerTwoComponent,
     FooterComponent,
     ShopComponent,
-    CartComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

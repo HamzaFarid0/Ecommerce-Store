@@ -11,3 +11,27 @@
   app-footer {
     margin-top: auto; /* Push the footer to the bottom of the page */
   }
+
+  @media (max-width : 700px) {
+    h1{
+      font-size: 46px;
+    }
+  }
+  @media (max-width : 600px) {
+    h1{
+      font-size: 40px;
+    }
+  }
+  @media (max-width : 500px) {
+    h1{
+      font-size: 35px;
+    }
+  }
+  @media (max-width : 400px) {
+    h1{
+      font-size: 30px;
+    }
+  p{
+    padding:0px 10px;
+  }
+  }
