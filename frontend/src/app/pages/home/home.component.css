@@ -1,0 +1,37 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+  }
+  main {
+    flex: 1; /* This allows the main content to grow and fill the remaining space */
+  }
+  
+  /* Ensure the footer does not stick to the top */
+  app-footer {
+    margin-top: auto; /* Push the footer to the bottom of the page */
+  }
+
+  @media (max-width : 700px) {
+    h1{
+      font-size: 46px;
+    }
+  }
+  @media (max-width : 600px) {
+    h1{
+      font-size: 40px;
+    }
+  }
+  @media (max-width : 500px) {
+    h1{
+      font-size: 35px;
+    }
+  }
+  @media (max-width : 400px) {
+    h1{
+      font-size: 30px;
+    }
+  p{
+    padding:0px 10px;
+  }
+  }

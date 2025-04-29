@@ -1,0 +1,80 @@
+
+
+  <h2 *ngIf="cartData?.length > 0" class="cart-heading" >Shopping Cart </h2>
+  <div class="container-fluid cart-container m-0">
+    <div class="row d-flex " *ngIf="cartData?.length > 0 ; else elseBlock"  >
+
+ <div class="col-md-8 col-11 p-0 m-0 ">
+    <table   style="background-color: white;" >
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+      <br />
+      <tr *ngFor="let data of cartData; let i = index">
+        <td>
+          <div class="cart-info">
+            <img src="{{ data.productId.image }}" alt="" />
+            <div>
+              <p class="item-name">{{ data.productId.name }}</p>
+              <small class="item-price-one">Price: ${{ data.productId.price }}</small>
+              <br />
+              <!-- <a href="">Remove</a> -->
+              <p class="cart-icon-p">
+                <fa-icon [icon]="deleteIcon" class="cart-icon" (click)="deleteItem(data.productId._id)" ></fa-icon>
+              </p>
+            </div>
+          </div>
+        </td>
+        <td style="padding-left: 10px;">
+ 
+          <input  [value]="data.quantity" type="number" min="1" (input)="updateCartItemQuantity(data.productId._id , $event)"  (keydown)="disableTyping($event)" />
+        </td>
+        <td style="padding-right: 20px" class="item-price"> ${{ data.productId.price * data.quantity }}</td>
+      </tr>
+    </table>
+  </div>
+
+
+    <div class="col-md-3 cart-summary-1" *ngIf="cartData?.length > 0">
+      <div class="cart-summary">
+        <span style="text-align: start" class="subtotal-order-placed">Subtotal ({{ totalQuantity }} {{ singleOrPluralItem }}): ${{ totalPrice}}</span>
+        <button (click)="orderPlaced()" class="place-order-btn">Place an Order</button>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+    <div class="row d-flex" *ngIf="cartData.length > 0">
+      <hr class="col-md-8 col-11 "  style="border: 1px solid #000; margin: 0px; padding: 0px;" />
+      <table class=" total-price col-md-8 col-11"  >
+        
+        <tr>
+          <td class="subtotal"> Subtotal ({{ totalQuantity }} {{ singleOrPluralItem }}): ${{totalPrice}}
+          </td>
+        </tr>
+      </table>
+  </div>
+
+  <div class="row cart-summary-2" *ngIf="cartData.length > 0" >
+    <div class="col-sm-12 " >
+      <div class="cart-summary-2i" >
+        <span style="text-align: start" class="subtotal-order-placed-2i">Subtotal ({{ totalQuantity }} {{ singleOrPluralItem }}): ${{ totalPrice}}</span>
+        <button (click)="orderPlaced()" class="place-order-btn-2i">Place an Order</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #elseBlock>
+  <div class="empty-cart">
+    <h2>Your Cart is empty</h2>
+    <button routerLink="/shop" class="empty-cart-btn">Shop Now</button>
+  </div>
+</ng-template>
+ 
+

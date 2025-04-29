@@ -1,0 +1,47 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-semibold text-center mb-2">Enter OTP</h2>
+      <p class="text-gray-500 text-center mb-4">We have sent a 6-digit code to your email</p>
+  
+      <!-- OTP Input Field -->
+      <input
+        type="text"
+        class="w-full h-12 text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-xl tracking-widest"
+        maxlength="6"
+        [(ngModel)]="otp"
+        (input)="onInputChange()"
+      />
+  
+      <div *ngIf="otpServerErrorMsg" class="text-red-500 mt-2" style="text-align: center;">
+        <p class="text-base  text-red-600 mt-2  font-normal" >{{otpServerErrorMsg}}</p>
+      </div>
+      
+
+      <!-- Verify Button -->
+      <button
+        class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+        (click)="verifyOtp()"
+        [disabled]="otp.length !== 6"
+      >
+        Verify OTP
+      </button>
+  
+      <!-- Resend OTP -->
+      <div class="mt-4 text-center">
+        <p class="text-gray-500">
+          Didn't receive the code?
+          <button
+            class="text-blue-500 hover:underline ml-1"
+            (click)="resendOtp()"
+            [disabled]="isResendDisabled"
+          >
+            Resend code
+          </button>
+        </p>
+        <p *ngIf="isResendDisabled" class="text-sm text-gray-400">
+          You can resend in {{ resendTimer }}s
+        </p>
+      </div>
+    </div>
+  </div>
+  

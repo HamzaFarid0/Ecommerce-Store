@@ -1,0 +1,17 @@
+      
+  <div class="pro-collection" >
+   <div class="product-cart" *ngFor="let data of productFirstOrSecindElementOrCategoryElement">
+    <img src={{data.image}} alt="product image" />
+       <span class="product-brand">{{data.brand}}</span>
+       <span class="product-name">{{data.name}}</span>
+       <div class="stars" >
+          <fa-icon class="star-icon" *ngFor="let star of createRange(data.rating)" [icon]="starIcon" ></fa-icon>
+       </div>
+    <div class="price-and-icon">
+       <h4 class="price">${{data.price}}</h4>
+       <fa-icon (click)="addItem(data)" [icon]="addIcon" class="cart-icon"></fa-icon>
+     </div>
+
+   </div>
+     
+</div>

@@ -1,0 +1,103 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+/* #banners {
+    margin: 00px;
+  }
+  #banners h2,
+  h4,
+  span {
+    color: rgb(248, 248, 248);
+  }
+  #banners .big-banners {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  #banners .big-banners div {
+    min-width: 580px;
+    margin: 15px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 25px;
+    background-size: cover;
+    backdrop-filter: blur(8%);
+  } */
+
+.big-banners-row{
+ margin: 0px 25px;
+  justify-content: center;
+  margin-bottom: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+
+}
+
+ .big-banners-1 {
+  flex: 1 1 40%;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('/assets/images/banners/big-banner-1.jpg');
+  background-attachment: scroll;
+  min-width: 334px;
+  max-width: 600px;
+  height: 320px;
+  padding: 25px;
+  padding-top: 125px;
+  justify-content: center;
+  }
+ .big-banners-2 {
+  flex: 1 1 40%;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-image: url('/assets/images/banners/big-banner-2.jpg');
+  min-width: 334px;
+  max-width: 600px;
+  height: 320px;
+  padding: 25px;
+  padding-top: 125px;
+  justify-content: center;
+    align-items: center;
+  }
+.overlay{
+  border-image: linear-gradient(
+    hsl(240 100% 20%/.6),
+    hsl(0 100% 20%/.6)
+  ) fill 1
+}
+
+   h2,h4, span {
+    color: white;
+  }
+
+  @media (max-width:576px) {
+    .big-banners-1 {
+        min-width: 280px;
+        max-width: 600px;
+        height: 320px;
+      }
+     .big-banners-2 {
+        min-width: 280px;
+        max-width: 600px;
+        height: 320px;
+      }
+  }
+
+  @media (min-width:1800px) {
+    .big-banners-1 {
+        min-width: 280px;
+        max-width: 700px;
+        height: 370px;
+      }
+     .big-banners-2 {
+        max-width: 700px;
+        height: 370px;
+      }
+  }

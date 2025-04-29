@@ -1,0 +1,25 @@
+
+<div class="select-search-container">
+  <div class="select-container">
+  
+    <select  class="select-tag" [value]="selectedCategory"  [(ngModel)]="selectedCategory" (change)="categoryChanged($event)">
+      <option selected value="shirt">Shirt</option>
+      <option  value="phone">Phone</option>
+      <option value="sofa-chair">Sofa-Chair</option>
+      <option value="watch">Watch</option>
+      <option value="jewellery">Jewellery</option>
+    </select>
+
+  </div>
+
+  <div class="search-container">
+    <app-search-bar></app-search-bar>
+  </div>
+  
+</div>
+
+<div *ngIf="errorMessage" class="no-products">
+   <h2 >{{errorMessage}}</h2>
+</div>
+
+<app-card *ngIf="!errorMessage" [productFirstOrSecindElementOrCategoryElement]="productCategoryData" ></app-card>

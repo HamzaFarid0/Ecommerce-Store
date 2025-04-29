@@ -1,0 +1,36 @@
+<header>
+    <div id="header">
+      <div class="header-logo">
+        <a routerLink="/" ><img style=" height: 45px;"  src="assets/images/logo-21.png" alt="" /></a>
+          
+      </div>
+
+      <div class="header-list">
+        <nav class="header-list-nav">
+          <ul >
+            <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >Home</a></li>
+            <li><a routerLink="/shop" routerLinkActive="active" >Shop</a></li>
+            <!-- <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li> -->
+   
+          </ul>
+        </nav>
+        <div class="header-list-icon">
+          <fa-icon routerLink="/cart" class="cart-icon"  [icon]="cartIcon" ></fa-icon>
+          <span class="badge"  > {{totalQuantity}}</span>
+        </div>
+      </div>
+
+      <div *ngIf="user$ | async as user" class="user-menu">
+        <button class="user-toggle" (click)="toggleDropdown()">
+          👤 {{user.username}} ▼
+        </button>
+        <div class="dropdown" *ngIf="dropdownOpen">
+
+          <a style="cursor: pointer;" (click)="logout()">Logout</a>
+        </div>
+      </div>
+      
+
+
+    </div>
+  </header>

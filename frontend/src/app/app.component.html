@@ -1,0 +1,16 @@
+
+<div class="app-container">
+  <app-navbar
+    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound"
+  ></app-navbar>
+
+  <main>
+    <lib-ng-toast></lib-ng-toast>
+
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-footer
+    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound"
+  ></app-footer>
+</div>

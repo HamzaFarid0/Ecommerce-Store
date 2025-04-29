@@ -1,0 +1,26 @@
+<div >
+    <app-banner-one></app-banner-one>
+
+    <section class="product-section section-p1">
+      <h1 style="text-align: center ">Featured Products</h1>
+
+      <p style="text-align: center">Summer Collection New Modern Design</p>
+
+      <app-card
+        [productFirstOrSecindElementOrCategoryElement]="productEachFirstElement"
+      ></app-card>
+    </section>
+
+    <app-sale-banner></app-sale-banner>
+
+    <section class="product-section section-p1">
+      <h1 style="text-align: center">New Arrivals</h1>
+      <p style="text-align: center">Summer Collection New Modern Design</p>
+
+      <app-card
+        [productFirstOrSecindElementOrCategoryElement]="productEachSecondElement"
+      ></app-card>
+    </section>
+
+    <app-banner-two></app-banner-two>
+  </div>

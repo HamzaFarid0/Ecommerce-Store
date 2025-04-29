@@ -1,0 +1,111 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+#footer{
+    display: flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    padding:10px 55px 55px 55px;
+    background-color: #232f3e;
+    width: 100%;
+  box-sizing: border-box;
+  }
+  .footer-logo{
+    padding:10px 0px 10px 40px;
+     background-color: #232f3e;
+  }
+  #footer p{
+    font-size: 16px;
+  }
+  #footer p, #footer a{
+    color: white;
+    text-decoration: none;
+  }
+  #footer a:hover{
+    color:#44fc6c;
+  }
+  #footer .about a{
+    display: block;
+    padding:8px 0;
+    font-size: 16px;
+  }
+  #footer .help a{
+    display: block;
+    padding:8px 0;
+    font-size: 16px;
+  }
+  #footer .categories a{
+    display: block;
+    padding:8px 0;
+    font-size: 16px;
+  }
+  
+  #footer-bottom {
+    text-align: center;
+    padding-bottom: 20px ;
+    background-color: #232f3e; 
+    color: rgb(109, 109, 109);
+  }
+  
+  #footer-bottom p {
+    margin: 0;
+    color: white;
+  }
+
+  h3{
+    color: white;
+    font-size: 20px;
+  }
+  .accordion{
+    background-color: #232f3e;
+    color: white;
+  }
+  .accordion-button {
+    justify-content: center; /* Center text horizontally */
+  }
+  .accordion-button::after {
+    display: none;
+  }
+  .accordion-body{
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+  }
+  .accordion-body p {
+    margin: 4px 0;
+    color: white;
+    font-size: 14px;
+  }
+  .accordion-body a {
+    display: block;
+    margin: 4px 0;
+    color: white;
+    font-size: 14px;
+  }
+
+.accordion{
+  display: none;
+}
+  @media (max-width : 768px){
+    #footer{
+      display: none;
+    }
+    .footer-logo{
+      padding:10px 0px 10px 20px;
+    }
+    .accordion{
+      display:block
+    }
+    #footer-bottom p {
+       font-size: 14px;
+    }
+  }
+
+  @media (max-width : 576px){
+    #footer-bottom p {
+       font-size: 12px;
+    }
+    .footer-logo{
+      padding:10px 0px 10px 15px;
+    }
+  }
+

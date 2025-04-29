@@ -1,0 +1,259 @@
+
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 80px;
+}
+.overlay{
+  border-image: linear-gradient(
+    hsla(9, 100%, 20%, 0.6),
+    hsla(187, 100%, 20%, 0.6)
+  ) fill 1
+}
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url('/assets/images/banners/banner-1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+opacity: 0.5;
+  z-index: -1;
+}
+
+#hero h4 {
+  padding-bottom: 15px;
+  font-size: 40px;
+}
+#hero h2{
+  font-size: 70px;
+
+}
+#hero h1 {
+  color: #088178;
+  font-size: 70px;
+
+}
+#hero button {
+  z-index: 2; 
+  background-color: transparent;
+  background-image: url('/assets/images/button.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 260px;
+  height: 60px;
+  border: 0;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+  color: #088178;
+  padding: 14px 65px 14px 65px;
+}
+
+/* @media (max-width: 614px) {
+  #hero {
+      padding: 0px;
+  }
+
+  #hero::before {
+    
+    background-size: contain ; 
+    background-position: top; 
+    background-attachment: scroll;
+  }
+} */
+
+@media (max-width: 1200px) {
+  #hero h4 {
+    padding-bottom: 13px;
+    font-size: 36px;
+  }
+  #hero h2{
+    font-size: 65px;
+  
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 65px;
+  
+  }
+}
+
+@media (max-width: 1000px) {
+  #hero h4 {
+    padding-bottom: 10px;
+    font-size: 32px;
+  }
+  #hero h2{
+    font-size: 50px;
+  
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 50px;
+  
+  }
+}
+@media (max-width: 800px) {
+  #hero{
+    padding-left: 60px;
+  }
+  #hero h4 {
+    font-size: 30px;
+  }
+  #hero h2{
+    font-size: 45px;
+  
+  }
+  #hero h1 {
+    font-size: 45px;
+  
+  }
+}
+@media (max-width: 700px) {
+  #hero{
+    padding-left: 50px;
+  }
+}
+@media (max-width: 550px) {
+  #hero{
+    padding-left: 40px;
+  }
+}
+@media (max-width: 480px) {
+  #hero{
+    padding-left: 30px;
+  }
+  #hero h4 {
+    font-size: 24px;
+  }
+  #hero h2{
+    font-size: 34px;
+  
+  }
+  #hero h1 {
+    font-size: 34px;
+  
+  }
+}
+@media (max-width: 375px) {
+  #hero{
+    padding-left: 10px;
+  }
+}
+@media (max-width: 355px) {
+  #hero{
+    padding-left: 5px;
+  }
+  #hero h4 {
+    font-size: 24px;
+  }
+  #hero h2{
+    font-size: 26px;
+  
+  }
+  #hero h1 {
+    font-size: 26px;
+  
+  }
+}
+/* @media (max-width: 900px) {
+  #hero h4 {
+    padding-bottom: 6px;
+    font-size: 26px;
+  }
+  #hero h2{
+    font-size: 40px;
+  
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 40px;
+  
+  }
+  #hero button {
+    width: 240px;
+    height: 50px;
+  }
+}
+@media (max-width: 800px) {
+  #hero {
+    padding: 20px; 
+}
+  #hero h4 {
+    padding-bottom: 5px;
+    font-size: 22px;
+  }
+  #hero h2{
+    font-size: 34px;
+  
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 34px;
+  
+  }
+}
+@media (max-width: 600px) {
+  #hero {
+    padding: 10px; 
+}
+  #hero h4 {
+    padding-bottom: 4px;
+    font-size: 20px;
+  }
+  #hero h2{
+    font-size: 30px;
+  
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 30px;
+  
+  }
+}
+@media (max-width: 500px) {
+  #hero {
+    padding: 8px; 
+}
+  #hero h4 {
+    padding-bottom: 3px;
+    font-size: 18px;
+  }
+  #hero h2{
+    font-size: 22px;
+  
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 22px;
+  
+  }
+}
+@media (max-width: 400px) {
+  #hero {
+    padding: 4px; 
+}
+  #hero h4 {
+    padding-bottom: 2px;
+    font-size: 16px;
+  }
+  #hero h2{
+    font-size: 16px;
+  }
+  #hero h1 {
+    color: #088178;
+    font-size: 16px;
+  
+  }
+} */
