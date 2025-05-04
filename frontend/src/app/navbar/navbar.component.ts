@@ -30,7 +30,7 @@ ngOnInit(): void {
   this._cartService.totalQuantity$.subscribe((data)=>{
       this.totalQuantity=data
   })
-  console.log(this.user$)
+
 }
 
 cartIcon = faCartArrowDown

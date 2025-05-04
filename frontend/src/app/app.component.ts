@@ -36,16 +36,17 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._cartService.getCartData().subscribe({
-      next : (res) =>{
-        this.totalQuantity = res.totalQuantity;
-        this._cartService.totalQuantitySubject.next(this.totalQuantity)
-      },
-      error : (err) => {
-         console.log(err)
-      }
-    })
-    
+
+      this._cartService.getCartData().subscribe({
+    next : (res) =>{
+      this.totalQuantity = res.totalQuantity;
+      this._cartService.totalQuantitySubject.next(this.totalQuantity)
+    },
+    error : (err) => {
+       console.log(err)
+    }
+  })
+  
 this._authService.isLoggedIn().subscribe()
 
     this._router.events
@@ -63,7 +64,7 @@ this._authService.isLoggedIn().subscribe()
   
         const currentComponent = route.component as any;
         this.pageNotFound = currentComponent === PageNotFoundComponent;
-        console.log(`Current route: ${url}`);
+        console.log(`Current routert: ${url}`);
       });
       
   }

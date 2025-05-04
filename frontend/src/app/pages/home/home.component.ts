@@ -4,6 +4,8 @@ import { BannerOneComponent } from 'src/app/banner-one/banner-one.component';
 import { BannerTwoComponent } from 'src/app/banner-two/banner-two.component';
 import { CardComponent } from 'src/app/card/card.component';
 import { SaleBannerComponent } from 'src/app/sale-banner/sale-banner.component';
+import { AuthService } from 'src/app/services/authService/auth.service';
+import { CartService } from 'src/app/services/cartService/cart.service';
 import { ProductService } from 'src/app/services/productService/product.service';
 
 @Component({
@@ -22,11 +24,17 @@ export class HomeComponent implements OnInit{
    productEachSecondElement: any = [];
    groupedByCategory: { [key: string]: any[] } = {};
    categoryNames: string[] = [];
+  
 
 
-  constructor(private _productSerice : ProductService) {}
+  constructor(private _productSerice : ProductService ,
+              private _cartService : CartService,
+              private _authService : AuthService
+  ) {}
 
 ngOnInit(): void {
+
+
      this._productSerice.getAllProducts().subscribe((data) => {
         console.log(data);
         this.productData = data
