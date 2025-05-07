@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from 'src/app/services/authService/auth.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class OtpVerifyComponent {
 
   constructor( private _authService : AuthService,
                private _router : Router,
-               private _activatedRoute : ActivatedRoute  
+               private _activatedRoute : ActivatedRoute,
+               private toast: NgToastService  
    ){}
 
    clearOtpServerErrorMsg() {
@@ -31,22 +33,27 @@ export class OtpVerifyComponent {
     },10000)
    }
 
-  // ✅ Auto-removes non-numeric characters
+  // Auto-removes non-numeric characters
   onInputChange() {
     this.otp = this.otp.replace(/\D/g, '').slice(0, 6);
+  }
+
+  showSuccess() {
+    this.toast.success({detail:"SUCCESS",summary:'Your account has been created successfully. You can now log in.',duration:3000});
   }
 
   verifyOtp() {
     this._authService.verifyOtp(this.otp).subscribe({
       next: (response) => {
-        console.log('✅ OTP verified successfully!');
+        console.log('OTP verified successfully!');
+        this.showSuccess()
         this._router.navigate(['../', 'login'], { relativeTo: this._activatedRoute });
         sessionStorage.removeItem('email-for-verification');
 
       },
       error: (err) => {
         
-        console.error('❌ Error:', err.error.message);
+        console.error(' Error:', err.error.message);
         this.otpServerErrorMsg = err.error.message
         this.clearOtpServerErrorMsg()
       },
@@ -54,20 +61,20 @@ export class OtpVerifyComponent {
   }
   
 
-  // ✅ Handle Resend OTP
+  //  Handle Resend OTP
   resendOtp() {
     this.otpServerErrorMsg = ''
     this._authService.resendOtp().subscribe({
       next: (response) => {
         if (response) {
-          console.log('✅ OTP verified successfully!');
+          console.log('OTP verified successfully!');
 
         } else {
-          console.log('❌ Invalid OTP. Try again.');
+          console.log('Invalid OTP. Try again.');
         }
       },
       error: (err) => {
-        console.log('⚠️ Error verifying OTP:', err.message);
+        console.log('Error verifying OTP:', err.message);
 
       },
     });

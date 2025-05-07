@@ -148,11 +148,19 @@ const login = async (req, res) => {
   
     const user = await UserModel.findOne({ email });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ errors: { general: "Invalid credentials"}, });
+    if (!user) {
+      return res.status(401).json({ errors: { email: "No account found with this email" } });
+    }
+ 
+    if (!user.isVerified) {
+      return res.status(403).json({ errors: { email: "Please verify your email before logging in" } });
+    }
+    
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ errors: { password: "Incorrect password. Please try again." } });
     }
 
-        //  Clean expired tokens before adding new one
      user.refreshTokens = user.refreshTokens.filter(tokenObj => {
        return tokenObj.expiresAt > new Date();
      });

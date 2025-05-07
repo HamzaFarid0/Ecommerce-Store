@@ -14,9 +14,9 @@ cron.schedule('*/15 * * * *', async () => {
     });
 
     if (result.deletedCount > 0) {
-      console.log(`🧹 Deleted ${result.deletedCount} unverified users`);
+      console.log(`Deleted ${result.deletedCount} unverified users`);
     }
   } catch (err) {
-    console.error('❌ Error cleaning up unverified users:', err);
+    console.error('Error cleaning up unverified users:', err);
   }
 });
