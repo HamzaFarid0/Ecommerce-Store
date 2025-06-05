@@ -43,7 +43,7 @@ export class LoginComponent {
     return;
   }
 
-     this._authService.login(form.value).subscribe({
+     this._authService.login(form).subscribe({
       next: (response) => {
         console.log("Login successful", response);
         this._router.navigate(['../' ] , { relativeTo : this._activatedRoute})

@@ -5,11 +5,10 @@ const UserModel = require('../models/user.model');
 
 cron.schedule('*/15 * * * *', async () => {
   const expiryTime = new Date(Date.now() - 15 * 60 * 1000); 
-  console.log('delete kar');
 
   try { 
     const result = await UserModel.deleteMany({
-      isVerified: false, 
+      isVerified: false,
       createdAt: { $lt: expiryTime },
     });
 

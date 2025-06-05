@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Form, FormGroup } from '@angular/forms';
 import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
@@ -31,12 +31,20 @@ export class AuthService {
     return this._http.post('http://localhost:5000/api/auth/resendOtp' , {email} , { withCredentials: true })
   }
 
-  login(data : any){
-    return this._http.post('http://localhost:5000/api/auth/login' , data,  { withCredentials: true })
+  login(data : FormGroup){
+    return this._http.post('http://localhost:5000/api/auth/login' , data.value,  { withCredentials: true })
   }
 
   logout(){
     return this._http.post('http://localhost:5000/api/auth/logout' , {}, { withCredentials: true })
+  }
+
+  forgotPassword(data : FormGroup): Observable<any> {
+     return this._http.post('http://localhost:5000/api/auth/forgotPassword' , data.value , { withCredentials: true })
+  }
+
+  resetPassword(data: FormGroup , token : string): Observable<any> {
+     return this._http.post('http://localhost:5000/api/auth/resetPassword' , {...data.value , token} , { withCredentials: true })
   }
 
   isLoggedIn(): Observable<boolean> {

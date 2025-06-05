@@ -4,6 +4,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OtpVerifyComponent } from './pages/otp-verify/otp-verify.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswrodComponent } from './pages/reset-passwrod/reset-passwrod.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,6 +27,8 @@ export const routes: Routes = [
   {path : 'signup' , component : SignupComponent,  },
   {path : 'login' , component : LoginComponent},
   {path : 'verify-otp' , component : OtpVerifyComponent},
+  {path : 'forgot-password' , component : ForgotPasswordComponent},
+  { path: 'reset-password/:token',component: ResetPasswrodComponent},
   {path: '**', component: PageNotFoundComponent },
 ];
   

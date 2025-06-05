@@ -26,6 +26,8 @@ export class AppComponent implements OnInit {
   isLoginRoute: boolean = false;
   pageNotFound : boolean = false
   isVeirfyOtpRoute: boolean = false;
+  isForgotPasswordRoute : boolean = false
+  isResetPasswordRoute : boolean =false
   totalQuantity! : number
 
   constructor(
@@ -56,6 +58,8 @@ this._authService.isLoggedIn().subscribe()
         this.isSignupRoute = url.startsWith('/signup');
         this.isLoginRoute = url.startsWith('/login');
         this.isVeirfyOtpRoute = url.startsWith('/verify-otp')
+        this.isForgotPasswordRoute=url.startsWith('/forgot-password')
+        this.isResetPasswordRoute = url.startsWith('/reset-password')
      
         let route = this._activatedRoute.root
           while (route.firstChild) {

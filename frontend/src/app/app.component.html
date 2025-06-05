@@ -1,7 +1,7 @@
 
 <div class="app-container">
   <app-navbar
-    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound"
+    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound && !isForgotPasswordRoute && !isResetPasswordRoute"
   ></app-navbar>
 
   <main>
@@ -11,6 +11,6 @@
   </main>
 
   <app-footer
-    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound"
+    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound && !isForgotPasswordRoute && !isResetPasswordRoute"
   ></app-footer>
 </div>

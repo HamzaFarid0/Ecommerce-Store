@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const crypto = require("crypto");
 const UserModel = require('../models/user.model')
 const { generateAccessToken, generateRefreshToken, verifyToken } = require('../utils/token.utils');
-const sendOTPEmail = require('../utils/mailer')
+const {sendOTPEmail , sendForgotPasswordEmail} = require('../utils/mailer')
 const { isValidEmail } = require('../utils/validator')
 const redisConnect = require('../redis-connect/redis.connect')
 
@@ -55,7 +55,7 @@ const signup = async (req, res) => {
     // Generate OTP (6-digit)
     const otp = crypto.randomInt(100000, 999999).toString();
 
-    await redisConnect.setex(`otp:${email}`, 600 , otp);
+    await redisConnect.set(`otp:${email}`, otp, 'EX', 600);
 
     // Send OTP via email
     await sendOTPEmail(email, otp);
@@ -115,7 +115,7 @@ const resendOtp = async (req, res) => {
 
   const otp = crypto.randomInt(100000, 999999).toString();
 
-  await redisConnect.setex(`otp:${email}`, 600, otp);
+  await redisConnect.set(`otp:${email}`, otp, 'EX', 600);
 
   await sendOTPEmail(email, otp);
 }
@@ -225,4 +225,86 @@ const logout = async (req, res) =>{
   }
 }
 
-module.exports = { signup, verifyOTP, resendOtp, login, logout }
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  const errors = {};
+
+  // Email validation
+  if (!email) {
+    errors.email = "Email is required";
+  } else if (!isValidEmail(email)) {
+    errors.email = "Email format is invalid";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({ errors });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ errors: { email: "No account found with this email" } });
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    await redisConnect.set(`reset:${token}`, user._id.toString(), "EX", 900);
+
+    const resetLink = `http://localhost:4200/reset-password/${token}`;
+
+    await sendForgotPasswordEmail(user.email, resetLink);
+
+    //  Success response
+    return res.status(200).json({
+      message: "Password reset link has been sent to your email.",
+    });
+
+  } catch (error) {
+    console.error("Forgot password error:", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+};
+
+const resetPassword = async ( req, res ) => {
+  const { token } = req.body;
+  const { password } = req.body;
+
+  const errors = {};
+
+  // Validation
+  if (!password) {
+    errors.password = 'Password is required';
+  } else if (password.length < 8) {
+    errors.password = 'Password must be at least 8 characters long';
+  }
+
+  if (!token) {
+    errors.token = 'Reset token is missing or exipired';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({ errors });
+  }
+
+  try {
+    // Lookup userId from Redis using token
+    const userId = await redisConnect.get(`reset:${token}`);
+    if (!userId) {
+      return res.status(400).json({ errors: { token: 'Reset link is invalid or expired' } });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await UserModel.findByIdAndUpdate(userId, { password: hashedPassword });
+
+    await redisConnect.del(`reset:${token}`);
+
+    return res.status(200).json({ message: 'Password has been reset successfully' });
+  } catch (err) {
+    console.error('Reset password error:', err);
+    return res.status(500).json({ errors: { general: 'Something went wrong' } });
+  }
+}
+
+module.exports = { signup, verifyOTP, resendOtp, login, logout, forgotPassword, resetPassword }
