@@ -1,15 +1,22 @@
-const express = require('express')
-const router = express.Router()
-const {signup , verifyOTP , resendOtp, login, logout, forgotPassword, resetPassword } = require('../controllers/auth.controller')
+import express from 'express';
+import {
+  signup,
+  verifyOTP,
+  resendOtp,
+  login,
+  logout,
+  forgotPassword,
+  resetPassword
+} from '../controllers/auth.controller.js';
 
+const router = express.Router();
 
-router.post('/signup' , signup)
-router.post('/verify-otp' , verifyOTP)
-router.post("/resendOtp", resendOtp);
-router.post("/login", login);
-router.post("/logout", logout);
-router.post("/forgotPassword", forgotPassword);
-router.post("/resetPassword", resetPassword);
+router.post('/signup', signup);
+router.post('/verify-otp', verifyOTP);
+router.post('/resendOtp', resendOtp);
+router.post('/login', login);
+router.post('/logout', logout);
+router.post('/forgotPassword', forgotPassword);
+router.post('/resetPassword', resetPassword);
 
-
-module.exports = router
+export default router;

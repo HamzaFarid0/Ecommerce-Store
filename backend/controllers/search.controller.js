@@ -1,4 +1,4 @@
-const ProductModel = require('../models/product.model')
+import ProductModel from '../models/product.model.js';
 
 const searchProducts = async (req, res) => {
   try {
@@ -7,7 +7,7 @@ const searchProducts = async (req, res) => {
     const query = {};
 
     if (keyword && keyword.trim() !== '') {
-      query.name = new RegExp(keyword, 'i'); 
+      query.name = new RegExp(keyword, 'i'); // Case-insensitive search
     }
 
     if (category) {
@@ -15,7 +15,7 @@ const searchProducts = async (req, res) => {
     }
 
     const products = await ProductModel.find(query);
- 
+
     if (keyword && keyword.trim() !== '' && products.length === 0) {
       return res.status(404).json({ success: false, message: 'No products found' });
     }
@@ -26,5 +26,4 @@ const searchProducts = async (req, res) => {
   }
 };
 
-
-module.exports = { searchProducts }
+export { searchProducts };

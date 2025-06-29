@@ -1,8 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const { placeOrder} = require('../controllers/orders.contoller')
-const authenticateUser = require('../middlewares/authenticate.user')
+import express from 'express';
+import { placeOrder } from '../controllers/orders.contoller.js';
+import authenticateUser from '../middlewares/authenticate.user.js';
 
-router.post('/' , authenticateUser , placeOrder )
+const router = express.Router();
 
-module.exports = router
+router.post('/', authenticateUser, placeOrder);
+
+export default router;

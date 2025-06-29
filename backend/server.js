@@ -1,14 +1,18 @@
-const express = require("express");
-const cors = require('cors'); 
-const cookieParser = require("cookie-parser");
-const authRouter = require('./routes/auth.routes');
-const productRouter = require('./routes/product.routes')
-const searchRouter = require('./routes/search.routes')
-const  protectedRoute  = require("./routes/protectedRoute.routes");
-const  cartRoute  = require("./routes/cart.routes");
-const  ordersRoute  = require("./routes/orders.route");
-const connectDB = require("./config/db");
-require('./cron/cleanupUnverifiedUsers'); 
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
+import authRouter from './routes/auth.routes.js';
+import productRouter from './routes/product.routes.js';
+import searchRouter from './routes/search.routes.js';
+import protectedRoute from './routes/protectedRoute.routes.js';
+import cartRoute from './routes/cart.routes.js';
+import ordersRoute from './routes/orders.route.js';
+
+import connectDB from './config/db.js';
+import './cron/cleanupUnverifiedUsers.js'; // for side-effect only (no export)
+
+
 const app = express();
 
 const PORT = process.env.PORT || 5000;

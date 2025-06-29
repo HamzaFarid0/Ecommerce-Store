@@ -1,21 +1,21 @@
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL, 
-      pass: process.env.EMAIL_PASS, 
-    },
-    tls: {
-      rejectUnauthorized: false,  
-    },
-  });
-  
-  
-  
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
-const sendOTPEmail = async (email, otp) => {
+// Send OTP Email
+export const sendOTPEmail = async (email, otp) => {
   try {
     const mailOptions = {
       from: `"Hamza Farid" <${process.env.EMAIL}>`,
@@ -32,7 +32,7 @@ const sendOTPEmail = async (email, otp) => {
 };
 
 // Forgot Password Email
-const sendForgotPasswordEmail = async (email, resetLink) => {
+export const sendForgotPasswordEmail = async (email, resetLink) => {
   try {
     const mailOptions = {
       from: `"Hamza Farid" <${process.env.EMAIL}>`,
@@ -52,6 +52,3 @@ const sendForgotPasswordEmail = async (email, resetLink) => {
     console.error("Error sending password reset email", error);
   }
 };
-
-
-module.exports = {sendOTPEmail , sendForgotPasswordEmail};

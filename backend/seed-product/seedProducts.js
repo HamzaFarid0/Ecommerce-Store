@@ -1,12 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import ProductModel from '../models/product.model.js';
+import productData from '../data/productData.json' assert { type: "json" };
+import connectDB from '../config/db.js';
 
-const ProductModel = require('../models/product.model'); 
-const productData = require('../data/productData.json'); 
-const connectDB = require("../config/db");
-require('dotenv').config();
+dotenv.config();
 
-// Connect to MongoDB
-connectDB().then(seedProducts); 
+// Connect to MongoDB and seed
+connectDB().then(seedProducts);
 
 async function seedProducts() {
   try {
@@ -20,4 +21,3 @@ async function seedProducts() {
     mongoose.connection.close();
   }
 }
-

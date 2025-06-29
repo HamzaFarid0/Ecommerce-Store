@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ProductSchema = new mongoose.Schema({
-  id: { type: Number, required: true, unique: true }, 
+  id: { type: Number, required: true, unique: true },
   name: String,
   brand: String,
   image: String,
@@ -11,4 +11,4 @@ const ProductSchema = new mongoose.Schema({
   category: String
 });
 
-module.exports = ProductSchema;
+export default ProductSchema;

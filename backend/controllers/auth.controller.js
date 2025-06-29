@@ -1,45 +1,33 @@
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt');
-const crypto = require("crypto");
-const UserModel = require('../models/user.model')
-const { generateAccessToken, generateRefreshToken, verifyToken } = require('../utils/token.utils');
-const {sendOTPEmail , sendForgotPasswordEmail} = require('../utils/mailer')
-const { isValidEmail } = require('../utils/validator')
-const redisConnect = require('../redis-connect/redis.connect')
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import dotenv from 'dotenv';
 
-require('dotenv').config()
+import UserModel from '../models/user.model.js';
+import { generateAccessToken, generateRefreshToken, verifyToken } from '../utils/token.utils.js';
+import { sendOTPEmail, sendForgotPasswordEmail } from '../utils/mailer.js';
+import  isValidEmail  from '../utils/validator.js';
+import redisConnect from '../redis-connect/redis.connect.js';
+
+dotenv.config();
 
 const signup = async (req, res) => {
   try {
     console.log("Received Data:", req.body);  
 
     const { username, email, password } = req.body;
-
     const errors = {};
 
-    //  Field validations
-    if (!username) {
-      errors.username = "Username is required";
-    }
-  
-    if (!email) {
-      errors.email = "Email is required";
-    } else if (!isValidEmail(email)) {
-      errors.email = "Email is invalid";
-    }
-  
-    if (!password) {
-      errors.password = "Password is required";
-    } else if (password.length < 8) {
-      errors.password = "Password must be at least 8 characters";
-    }
-  
-    //  Return 400 if there are validation errors
+    if (!username) errors.username = "Username is required";
+    if (!email) errors.email = "Email is required";
+    else if (!isValidEmail(email)) errors.email = "Email is invalid";
+    if (!password) errors.password = "Password is required";
+    else if (password.length < 8) errors.password = "Password must be at least 8 characters";
+
     if (Object.keys(errors).length > 0) {
       return res.status(400).json({ errors });
     }
-  
-    //  Check if email already exists
+
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
       return res.status(409).json({
@@ -48,16 +36,10 @@ const signup = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Save user with isVerified: false, store hashed password
     const newUser = await UserModel.create({ username, email, password: hashedPassword, isVerified: false });
 
-    // Generate OTP (6-digit)
     const otp = crypto.randomInt(100000, 999999).toString();
-
     await redisConnect.set(`otp:${email}`, otp, 'EX', 600);
-
-    // Send OTP via email
     await sendOTPEmail(email, otp);
 
     res.status(201).json({ message: "OTP sent successfully" });
@@ -65,32 +47,25 @@ const signup = async (req, res) => {
     console.error("Internal server error while signing up");
     res.status(500).json({ message: "Internal server error while signing up" });
   }
-}
+};
 
-//  Verify OTP
 const verifyOTP = async (req, res) => {
   try {
-
     const { otp, email } = req.body;
     if (!otp || !email) {
       return res.status(400).json({ message: "Both otp and email is required" });
     }
 
-    // Get stored OTP from Redis
     const storedOTP = await redisConnect.get(`otp:${email}`);
     if (!storedOTP) {
-      console.log('OTP expired')
       return res.status(400).json({ message: "OTP expired, request for new OTP" });
     }
     if (storedOTP !== otp) {
-      console.log('Invalid OTP')
       return res.status(400).json({ message: "Invalid OTP" });
     }
 
-    // Remove OTP from Redis
     await redisConnect.del(`otp:${email}`);
 
-    //  Update user's isVerified to true
     const verifiedUser = await UserModel.findOneAndUpdate(
       { email },
       { isVerified: true },
@@ -110,60 +85,36 @@ const verifyOTP = async (req, res) => {
 };
 
 const resendOtp = async (req, res) => {
-  console.log('resend otp' ,req.body)
-  const { email  } = req.body;
+  const { email } = req.body;
 
   const otp = crypto.randomInt(100000, 999999).toString();
-
   await redisConnect.set(`otp:${email}`, otp, 'EX', 600);
-
   await sendOTPEmail(email, otp);
-}
+  res.status(200).json({ message: "OTP resent successfully" });
+};
 
 const login = async (req, res) => {
   try {
-    console.log('Received Login Data: ' , req.body)
     const { email, password } = req.body;
-
     const errors = {};
 
-    //  Email validation
-    if (!email) {
-      errors.email = "Email is required";
-    } else if (!isValidEmail(email)) {
-      errors.email = "Email format is invalid";
-    }
+    if (!email) errors.email = "Email is required";
+    else if (!isValidEmail(email)) errors.email = "Email format is invalid";
+    if (!password) errors.password = "Password is required";
+    else if (password.length < 8) errors.password = "Password must be at least 8 characters";
 
-    //  Password validation
-    if (!password) {
-      errors.password = "Password is required";
-    } else if (password.length < 8) {
-      errors.password = "Password must be at least 8 characters";
-    }
-  
-    //  Return validation errors before querying DB
     if (Object.keys(errors).length > 0) {
       return res.status(400).json({ errors });
     }
-  
+
     const user = await UserModel.findOne({ email });
+    if (!user) return res.status(401).json({ errors: { email: "No account found with this email" } });
+    if (!user.isVerified) return res.status(403).json({ errors: { email: "Please verify your email before logging in" } });
 
-    if (!user) {
-      return res.status(401).json({ errors: { email: "No account found with this email" } });
-    }
- 
-    if (!user.isVerified) {
-      return res.status(403).json({ errors: { email: "Please verify your email before logging in" } });
-    }
-    
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ errors: { password: "Incorrect password. Please try again." } });
-    }
+    if (!isPasswordValid) return res.status(401).json({ errors: { password: "Incorrect password. Please try again." } });
 
-     user.refreshTokens = user.refreshTokens.filter(tokenObj => {
-       return tokenObj.expiresAt > new Date();
-     });
+    user.refreshTokens = user.refreshTokens.filter(tokenObj => tokenObj.expiresAt > new Date());
 
     const accessToken = generateAccessToken({ id: user._id, email: user.email });
     const refreshToken = generateRefreshToken({ id: user._id, email: user.email });
@@ -171,22 +122,23 @@ const login = async (req, res) => {
     user.refreshTokens.push({
       token: refreshToken,
       createdAt: new Date(),
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     });
+
     await user.save();
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: false, 
+      secure: false,
       sameSite: "Strict",
-      maxAge: 15 * 60 * 1000,     
+      maxAge: 15 * 60 * 1000,
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: false,
-      sameSite: "Strict",  
-      maxAge: 7 * 24 * 60 * 60 * 1000,  
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({ message: "Login successful", user });
@@ -196,45 +148,36 @@ const login = async (req, res) => {
   }
 };
 
-const logout = async (req, res) =>{
+const logout = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-
     if (!refreshToken) {
       return res.status(401).json({ message: "Refresh token is required" });
     }
 
-    // Remove refresh token from DB
     const user = await UserModel.findOne({ 'refreshTokens.token': refreshToken });
-
     if (!user) {
       return res.status(403).json({ message: "Invalid refresh token" });
     }
 
-    user.refreshTokens = user.refreshTokens.filter((rtoken) => rtoken.token !== refreshToken);
+    user.refreshTokens = user.refreshTokens.filter(rtoken => rtoken.token !== refreshToken);
     await user.save();
 
     res.clearCookie("refreshToken");
     res.clearCookie("accessToken");
 
-    console.log("Logged out successfully")
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    console.log("Error during logout")
     res.status(500).json({ message: "Error during logout", error });
   }
-}
+};
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const errors = {};
 
-  // Email validation
-  if (!email) {
-    errors.email = "Email is required";
-  } else if (!isValidEmail(email)) {
-    errors.email = "Email format is invalid";
-  }
+  if (!email) errors.email = "Email is required";
+  else if (!isValidEmail(email)) errors.email = "Email format is invalid";
 
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({ errors });
@@ -242,62 +185,43 @@ const forgotPassword = async (req, res) => {
 
   try {
     const user = await UserModel.findOne({ email });
-
     if (!user) {
       return res.status(401).json({ errors: { email: "No account found with this email" } });
     }
 
     const token = crypto.randomBytes(32).toString("hex");
-
     await redisConnect.set(`reset:${token}`, user._id.toString(), "EX", 900);
 
     const resetLink = `http://localhost:4200/reset-password/${token}`;
-
     await sendForgotPasswordEmail(user.email, resetLink);
 
-    //  Success response
-    return res.status(200).json({
-      message: "Password reset link has been sent to your email.",
-    });
-
+    return res.status(200).json({ message: "Password reset link has been sent to your email." });
   } catch (error) {
     console.error("Forgot password error:", error);
     return res.status(500).json({ message: "Server error. Please try again later." });
   }
 };
 
-const resetPassword = async ( req, res ) => {
-  const { token } = req.body;
-  const { password } = req.body;
-
+const resetPassword = async (req, res) => {
+  const { token, password } = req.body;
   const errors = {};
 
-  // Validation
-  if (!password) {
-    errors.password = 'Password is required';
-  } else if (password.length < 8) {
-    errors.password = 'Password must be at least 8 characters long';
-  }
-
-  if (!token) {
-    errors.token = 'Reset token is missing or exipired';
-  }
+  if (!password) errors.password = 'Password is required';
+  else if (password.length < 8) errors.password = 'Password must be at least 8 characters long';
+  if (!token) errors.token = 'Reset token is missing or expired';
 
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({ errors });
   }
 
   try {
-    // Lookup userId from Redis using token
     const userId = await redisConnect.get(`reset:${token}`);
     if (!userId) {
       return res.status(400).json({ errors: { token: 'Reset link is invalid or expired' } });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
     await UserModel.findByIdAndUpdate(userId, { password: hashedPassword });
-
     await redisConnect.del(`reset:${token}`);
 
     return res.status(200).json({ message: 'Password has been reset successfully' });
@@ -305,6 +229,14 @@ const resetPassword = async ( req, res ) => {
     console.error('Reset password error:', err);
     return res.status(500).json({ errors: { general: 'Something went wrong' } });
   }
-}
+};
 
-module.exports = { signup, verifyOTP, resendOtp, login, logout, forgotPassword, resetPassword }
+export {
+  signup,
+  verifyOTP,
+  resendOtp,
+  login,
+  logout,
+  forgotPassword,
+  resetPassword
+};

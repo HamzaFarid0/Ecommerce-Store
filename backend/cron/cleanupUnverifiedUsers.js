@@ -1,12 +1,10 @@
-
-const cron = require('node-cron');
-const UserModel = require('../models/user.model');
-
+import cron from 'node-cron';
+import UserModel from '../models/user.model.js';
 
 cron.schedule('*/15 * * * *', async () => {
-  const expiryTime = new Date(Date.now() - 15 * 60 * 1000); 
+  const expiryTime = new Date(Date.now() - 15 * 60 * 1000); // 15 minutes ago
 
-  try { 
+  try {
     const result = await UserModel.deleteMany({
       isVerified: false,
       createdAt: { $lt: expiryTime },
