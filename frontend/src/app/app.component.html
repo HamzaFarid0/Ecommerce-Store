@@ -1,16 +1,20 @@
-
-<div class="app-container">
-  <app-navbar
-    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound && !isForgotPasswordRoute && !isResetPasswordRoute"
-  ></app-navbar>
-
+<!-- 
+<div class="app-container"> -->
+  <!-- <app-navbar
+    *ngIf="!isSignupRoute && !isLoginRoute && !isSuccessRoute && !isCancelRoute && !isVeirfyOtpRoute && !pageNotFound && !isForgotPasswordRoute && !isResetPasswordRoute"
+  ></app-navbar> -->
+ <!-- <app-navbar *ngIf="!hideLayout"></app-navbar>
   <main>
     <lib-ng-toast></lib-ng-toast>
 
     <router-outlet></router-outlet>
-  </main>
+  </main> -->
 
-  <app-footer
-    *ngIf="!isSignupRoute && !isLoginRoute && !isVeirfyOtpRoute && !pageNotFound && !isForgotPasswordRoute && !isResetPasswordRoute"
-  ></app-footer>
-</div>
+  <!-- <app-footer
+    *ngIf="!isSignupRoute && !isLoginRoute && !isSuccessRoute  && !isCancelRoute && !isVeirfyOtpRoute && !pageNotFound && !isForgotPasswordRoute && !isResetPasswordRoute"
+  ></app-footer> -->
+    <!-- <app-footer *ngIf="!hideLayout"></app-footer>
+</div> -->
+
+
+<router-outlet></router-outlet>

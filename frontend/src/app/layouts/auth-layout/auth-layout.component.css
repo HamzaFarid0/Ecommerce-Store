@@ -1,0 +1,6 @@
+/* DO NOT style login/signup here */
+/* Only ensure full width & height */
+.auth-layout {
+  width: 100%;
+  min-height: 100vh;
+}

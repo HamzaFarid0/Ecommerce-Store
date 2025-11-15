@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/authService/auth.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-reset-passwrod',
@@ -27,7 +28,9 @@ export class ResetPasswrodComponent {
   constructor(
     private _formBuilderService: FormBuilder,
     private _authService: AuthService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router : Router,
+       private toast: NgToastService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,10 @@ export class ResetPasswrodComponent {
 
     this.token = this._activatedRoute.snapshot.paramMap.get('token')!;
     console.log(this.token);
+  }
+
+  showSuccess(message : string) {
+    this.toast.success({detail:"SUCCESS",summary: `${message}` , duration:3000});
   }
 
   submit(form: FormGroup) {
@@ -53,7 +60,9 @@ export class ResetPasswrodComponent {
     this._authService.resetPassword(form, this.token).subscribe({
       next: (res) => {
         this.serverErrors = {};
-        this.successMessage = res.message;
+        this.showSuccess(res.message)
+        this._router.navigate(['/login'])
+      
       },
       error: (err) => {
         this.successMessage = '';
@@ -62,3 +71,9 @@ export class ResetPasswrodComponent {
     });
   }
 }
+
+
+
+
+
+

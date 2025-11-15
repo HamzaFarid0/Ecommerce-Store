@@ -19,6 +19,10 @@ export class ForgotPasswordComponent implements OnInit{
     successMessage : string = ''
   serverErrors: { [key: string]: string } = {};
 
+    isResendDisabled: boolean = false;
+  countdown: number = 30;
+  private timerId: ReturnType<typeof setInterval> | null = null;
+
     constructor(private _formBuilderService : FormBuilder,
                 private _authService : AuthService,
     ){}
@@ -29,12 +33,18 @@ export class ForgotPasswordComponent implements OnInit{
       })
     }
 
+ 
+
     submit(form : FormGroup){
       this.submitted=true
       this._authService.forgotPassword(form).subscribe({
         next : (res) => {
           this.serverErrors={}
           this.successMessage=res.message
+             this.startResendTimer();
+                   setTimeout(() => {
+          this.successMessage = "";
+        }, 30000);
         },
         error : (err) => {
         if (err.error?.errors) {
@@ -45,4 +55,43 @@ export class ForgotPasswordComponent implements OnInit{
       })
     }
 
+      resendLink() {
+    if (this.forgotPasswordForm.invalid) return;
+
+    this._authService.forgotPassword(this.forgotPasswordForm).subscribe({
+      next: (res) => {
+        this.successMessage = 'A new password reset link has been sent.';
+        
+      }
+    });
+  }
+
+ private startResendTimer() {
+    // reset if already running
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
+
+    this.countdown = 30;
+    this.isResendDisabled = true;
+
+    this.timerId = setInterval(() => {
+      this.countdown -= 1;
+      if (this.countdown <= 0) {
+        if (this.timerId) {
+          clearInterval(this.timerId);
+          this.timerId = null;
+        }
+        this.isResendDisabled = false;
+      }
+    }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
+  }
 }

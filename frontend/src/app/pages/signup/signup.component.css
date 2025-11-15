@@ -1,4 +1,148 @@
-
+/* 
     @tailwind base;
     @tailwind components;
-    @tailwind utilities;
+    @tailwind utilities; */
+
+
+    /* Full Page Background */
+.signup-page {
+  position: relative;
+  height: 100vh;
+  background: url('/assets/images/a-bg.png') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Soft overlay for readability */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* Center container */
+.signup-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Card Styling */
+.signup-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.8s ease;
+}
+
+/* Headings */
+.signup-title {
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.signup-subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  color: #444;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+/* Error messages */
+.error-text {
+  color: #e63946;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Button */
+.signup-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-btn:hover {
+  background: linear-gradient(135deg, #0056d2, #0096e0);
+}
+
+/* Links */
+.links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.links a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.links a:hover {
+  color: #0056d2;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .signup-card {
+    padding: 30px 20px;
+  }
+}

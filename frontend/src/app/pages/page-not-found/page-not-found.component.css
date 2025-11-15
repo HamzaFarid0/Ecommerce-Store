@@ -1,3 +1,69 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 404 code — refined size and tone */
+.error-code {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #dc2626; /* Red tone for visibility */
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+/* Subheading */
+.error-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+/* Description */
+.error-description {
+  color: #6b7280;
+  font-size: 1rem;
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Button */
+.home-btn {
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 26px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .error-code {
+    font-size: 3.2rem;
+  }
+
+  .error-title {
+    font-size: 1.4rem;
+  }
+
+  .error-description {
+    font-size: 0.95rem;
+  }
+}

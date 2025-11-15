@@ -116,8 +116,8 @@ const login = async (req, res) => {
 
     user.refreshTokens = user.refreshTokens.filter(tokenObj => tokenObj.expiresAt > new Date());
 
-    const accessToken = generateAccessToken({ id: user._id, email: user.email });
-    const refreshToken = generateRefreshToken({ id: user._id, email: user.email });
+    const accessToken = generateAccessToken({ id: user._id });
+    const refreshToken = generateRefreshToken({ id: user._id });
 
     user.refreshTokens.push({
       token: refreshToken,

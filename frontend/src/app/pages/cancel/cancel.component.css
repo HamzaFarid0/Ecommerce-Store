@@ -1,0 +1,99 @@
+.cancel-wrapper {
+  background: #f6f7fb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.cancel-card {
+  background: white;
+  padding: 38px 32px;
+  border-radius: 16px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+}
+
+.cancel-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  background: #fde7e8;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel-icon svg {
+  width: 48px;
+  height: 48px;
+  stroke: #d63636;
+  fill: none;
+}
+
+.cancel-card h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2f3542;
+  margin-bottom: 10px;
+}
+
+.message {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+
+.info-box {
+  background: #fafafa;
+  padding: 16px 18px;
+  border-radius: 10px;
+  text-align: left;
+  margin-bottom: 28px;
+  color: #444;
+  font-size: 15px;
+}
+
+.info-box span {
+  font-weight: 600;
+  color: #2f3542;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  transition: 0.2s;
+}
+
+/* Primary */
+.primary {
+  background: #d63636;
+  color: white;
+}
+.primary:hover {
+  background: #b52c2c;
+}
+
+/* Secondary */
+.secondary {
+  background: #e7e7e7;
+  color: #333;
+}
+.secondary:hover {
+  background: #d5d5d5;
+}

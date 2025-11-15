@@ -1,0 +1,89 @@
+  <div *ngIf="loading" class="loading-wrapper">
+     <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!loading">
+<div class="orders-page" *ngIf=" orders.length > 0; else noOrders">
+  <h1>Your Orders</h1>
+
+  <div class="orders-container">
+
+    <div *ngFor="let order of orders" class="order-card">
+
+      <!-- Order Header -->
+      <div class="order-header">
+        <div>
+          <p><span>Order ID:</span> {{ order._id }}</p>
+          <p><span>Date:</span> {{ order.createdAt | date:'medium' }}</p>
+        </div>
+
+        <div class="status" 
+          [ngClass]="{
+            'paid': order.paymentStatus === 'Paid',
+            'pending': order.paymentStatus === 'Pending'
+          }">
+          {{ order.paymentStatus }}
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Product List -->
+      <div class="products-list">
+        <div *ngFor="let product of order.products" class="product-row">
+          <img [src]="product.image" alt="{{ product.name }}">
+          <div class="product-info">
+            <p class="product-name">{{ product.name }}</p>
+            <p class="product-qty">Quantity: {{ product.quantity }}</p>
+          </div>
+          <p class="product-price">${{ product.price }}</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Footer with Shipping Address Heading -->
+      <div class="order-footer">
+        <div class="footer-left">
+
+          <div class="shipping-inline">
+            <span class="shipping-label">Total:</span>
+             <span class="shipping-address">
+              ${{ order.totalAmount }}
+            </span>
+          </div>
+
+         <div class="shipping-inline">
+          <span class="shipping-label">Shipping Address:</span>
+          <span class="shipping-address">
+            {{ order.shippingAddress.line1 }},
+            {{ order.shippingAddress.city }},
+            {{ order.shippingAddress.postal_code }}
+          </span>
+        </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+
+<ng-template #noOrders>
+  <div class="no-orders-wrapper">
+    <div class="icon-box">
+      <svg class="empty-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 5M7 13l-2 9m5-9v9m6-9v9m4 0H4" />
+      </svg>
+    </div>
+
+    <h2>No Orders Yet</h2>
+    <p>Looks like you haven’t purchased anything yet.</p>
+
+    <a routerLink="/shop" class="shop-btn">Start Shopping</a>
+  </div>
+</ng-template>
+

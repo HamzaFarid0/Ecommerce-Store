@@ -1,0 +1,43 @@
+<div class="wrapper">
+
+<div class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-2xl shadow-lg p-10 max-w-md text-center">
+
+    <!-- Cancel Icon -->
+    <div class="bg-red-100 w-24 h-24 mx-auto flex items-center justify-center rounded-full mb-6">
+      <svg class="w-12 h-12 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Payment Canceled</h1>
+
+    <!-- Subheading -->
+    <p class="text-gray-600 mb-6">
+      Your payment was not completed. No charges have been made.
+    </p>
+
+    <!-- Optional Info -->
+    <div class="bg-gray-50 p-5 rounded-lg mb-6 text-left">
+      <!-- <p class="text-gray-700"><span class="font-semibold">Order ID:</span> {{ orderId || 'N/A' }}</p>
+      <p class="text-gray-700"><span class="font-semibold">Amount:</span> ${{ amount || '0.00' }}</p> -->
+    <p class="text-gray-700"><span class="font-semibold">Order ID:32</span></p>
+      <p class="text-gray-700"><span class="font-semibold">Amount:</span> 32</p>
+      <p class="text-gray-700"><span class="font-semibold">Status:</span> Canceled</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a routerLink="/shop" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition">
+        Back to Shop
+      </a>
+      <a routerLink="/cart" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition">
+        View Cart
+      </a>
+    </div>
+
+  </div>
+</div>
+
+</div>

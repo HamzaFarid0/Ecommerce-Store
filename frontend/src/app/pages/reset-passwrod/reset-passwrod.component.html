@@ -1,69 +1,76 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">Reset Password</h2>
+<div class="reset-page">
+  <div class="reset-container">
+    <h2 class="reset-title">Reset Password</h2>
 
-    <form [formGroup]="resetPasswordForm" >
+    <form [formGroup]="resetPasswordForm">
 
-          <!--  Success Message  -->
-     <div *ngIf="successMessage" class="text-green-600 text-center mb-4">
-      {{ successMessage }}
-    </div>
+      <!-- Success Message -->
+      <!-- <div *ngIf="successMessage" class="reset-success">
+        {{ successMessage }}
+      </div> -->
 
-             <!-- Backend Validation -->
-      <div *ngIf="serverErrors?.['token']" class="text-center">
-         <small class=" text-red-600 mt-1 inline-block font-medium" style="font-size: 18px;" >{{serverErrors['token']}}</small>
+      <!-- Backend Validation -->
+      <div *ngIf="serverErrors['token']" class="reset-error">
+        <small>{{ serverErrors['token'] }}</small>
       </div>
 
-             <!-- Backend Validation -->
-      <div *ngIf="serverErrors?.['general']" class="text-center">
-         <small class=" text-red-600 mt-1 inline-block font-medium" style="font-size: 18px;" >{{serverErrors['general']}}</small>
+      <div *ngIf="serverErrors['general']" class="reset-error">
+        <small>{{ serverErrors['general'] }}</small>
       </div>
 
       <!-- New Password -->
-      <div class="mb-4">
-        <label for="password" class="block text-sm font-medium text-gray-600 mb-1">New Password</label>
-        <input id="password" type="password" formControlName="password"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+      <div class="form-group">
+        <label for="password">New Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
           placeholder="Enter new password"
         />
 
-                            <!-- Frontend Validation -->
-        <div *ngIf="submitted && resetPasswordForm.get('password')?.invalid">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="resetPasswordForm.get('password')?.hasError('required')">Password is required</small>
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="resetPasswordForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</small>
+        <!-- Frontend Validation -->
+        <div *ngIf="(resetPasswordForm.get('password')?.touched || submitted) && resetPasswordForm.get('password')?.invalid" class="validation-error">
+          <small *ngIf="resetPasswordForm.get('password')?.hasError('required')">
+            Password is required
+          </small>
+          <small *ngIf="resetPasswordForm.get('password')?.hasError('minlength')">
+            Password must be at least 8 characters
+          </small>
         </div>
 
-                 <!-- Backend Validation -->
-        <div  *ngIf="serverErrors?.['password']">
-           <small class="text-sm text-red-600 mt-2 inline-block font-normal" >{{serverErrors['password']}}</small>
+        <!-- Backend Validation -->
+        <div *ngIf="serverErrors['password']" class="validation-error">
+          <small>{{ serverErrors['password'] }}</small>
         </div>
-
       </div>
 
       <!-- Confirm Password -->
-      <div class="mb-6">
-        <label for="confirmPassword" class="block text-sm font-medium text-gray-600 mb-1">Confirm Password</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
           placeholder="Confirm your password"
         />
 
-                                    <!-- Frontend Validation -->
-        <div *ngIf="submitted && resetPasswordForm.get('confirmPassword')?.invalid">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="resetPasswordForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</small>
+        <!-- Frontend Validation -->
+        <div *ngIf="(resetPasswordForm.get('confirmPassword')?.touched || submitted) && resetPasswordForm.get('confirmPassword')?.invalid" class="validation-error">
+          <small *ngIf="resetPasswordForm.get('confirmPassword')?.hasError('required')">
+            Confirm Password is required
+          </small>
         </div>
 
-     <div *ngIf="submitted && passwordMismatch" >
-        <small class="text-sm text-red-600 mt-2 inline-block font-normal">Passwords do not match</small>
+        <div *ngIf="submitted && passwordMismatch" class="validation-error">
+          <small>Passwords do not match</small>
+        </div>
       </div>
 
-      </div>
-
-      <!-- Submit -->
+      <!-- Submit Button -->
       <button
         type="submit"
         (click)="submit(resetPasswordForm)"
-        class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+        class="reset-btn"
       >
         Confirm Password
       </button>

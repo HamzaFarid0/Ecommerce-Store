@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit{
 
 ngOnInit(): void {
 
-
+  
      this._productSerice.getAllProducts().subscribe((data) => {
         console.log(data);
-        this.productData = data
+        this.productData = data 
     
         for (let product of this.productData) {
          

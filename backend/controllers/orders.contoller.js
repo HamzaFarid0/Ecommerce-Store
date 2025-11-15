@@ -1,41 +1,25 @@
 import CartModel from '../models/cart.model.js';
+import OrderModel from '../models/order.model.js';
 
-const placeOrder = async (req, res) => {
+const viewOrders = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user._id; // req.user from auth middleware
 
-    // Empty the cart (but keep the document)
-    const updatedCart = await CartModel.findOneAndUpdate(
-      { userId },
-      { $set: { items: [] } },
-      { new: true }
-    );
-
-    if (!updatedCart) {
-      return res.status(404).json({ message: 'Cart not found' });
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
     }
 
-    let totalQuantity = 0;
-    let totalPrice = 0;
+    // Fetch all orders for the user, most recent first
+    const orders = await OrderModel.find({ userId })
+      .sort({ createdAt: -1 })
+      .lean(); // plain JS objects, no Mongoose document overhead
 
-    for (const item of updatedCart.items) {
-      const quantity = item.quantity;
-      const product = item.productId;
-
-      totalQuantity += quantity;
-      totalPrice += product.price * quantity;
-    }
-
-    res.status(200).json({
-      message: 'Order placed successfully',
-      cart: updatedCart,
-      totalQuantity,
-      totalPrice
-    });
+    return res.json({ success: true, orders });
   } catch (err) {
-    console.error('Error placing order:', err);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("VIEW ORDERS ERROR:", err.message);
+    return res.status(500).json({ success: false, message: "Failed to fetch orders" });
   }
+
 };
 
-export { placeOrder };
+export { viewOrders };

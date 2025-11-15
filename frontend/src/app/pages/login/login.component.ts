@@ -37,6 +37,7 @@ export class LoginComponent {
  }
 
  submitForm(form : FormGroup){
+  console.log('oooooooooooooo')
   this.submitted = true;
   this.serverErrors = {};
   if (this.loginForm.invalid) {

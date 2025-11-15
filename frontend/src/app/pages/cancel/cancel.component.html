@@ -1,0 +1,39 @@
+<div class="cancel-wrapper">
+
+  <div class="cancel-card">
+
+    <!-- Cancel Icon -->
+    <div class="cancel-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <!-- Heading -->
+    <h1>Payment Canceled</h1>
+
+    <!-- Subheading -->
+    <p class="message">
+      Your payment was not completed. No charges have been made.
+    </p>
+
+    <!-- Optional Info -->
+    <div class="info-box">
+      <!-- Later dynamically:
+      <p><span>Order ID:</span> {{ orderId }}</p>
+      <p><span>Amount:</span> ${{ amount }}</p>
+      -->
+      <p><span>Order ID:</span> N/A</p>
+      <p><span>Amount:</span> 0.00</p>
+      <p><span>Status:</span> Canceled</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-row">
+      <a routerLink="/shop" class="btn primary">Back to Shop</a>
+      <a routerLink="/cart" class="btn secondary">View Cart</a>
+    </div>
+
+  </div>
+
+</div>

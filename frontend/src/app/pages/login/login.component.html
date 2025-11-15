@@ -1,94 +1,127 @@
+<!-- <div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Login</h2>
 
-<div class="login-wrapper">
-<div class="min-h-screen flex items-center justify-center bg-grey-200">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-4/5 max-w-md ">
-      <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center ">Login</h2>
-      <form [formGroup]="loginForm">
-        
-       <!-- Backend Validation -->
-      <div *ngIf="serverErrors?.['general']" class="text-center">
-         <small class=" text-red-600 mt-1 inline-block font-medium" style="font-size: 18px;" >{{serverErrors['general']}}</small>
+      <form [formGroup]="loginForm"> -->
+
+        <!-- Backend General Error -->
+        <!-- <div *ngIf="serverErrors['general']" class="server-error">
+          {{ serverErrors['general'] }}
+        </div> -->
+
+        <!-- Email -->
+        <!-- <div class="form-group">
+          <label>Email</label>
+          <input type="text" formControlName="email" placeholder="Enter your email" />
+
+          <small *ngIf="submitted && loginForm.get('email')?.hasError('required')" class="error">
+            Email is required
+          </small>
+          <small *ngIf="submitted && loginForm.get('email')?.hasError('email')" class="error">
+            Enter a valid email
+          </small>
+
+          <small *ngIf="serverErrors['email']" class="error">
+            {{ serverErrors['email'] }}
+          </small>
+        </div> -->
+
+        <!-- Password -->
+        <!-- <div class="form-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="Enter your password" />
+
+          <small *ngIf="submitted && loginForm.get('password')?.hasError('required')" class="error">
+            Password is required
+          </small>
+          <small *ngIf="submitted && loginForm.get('password')?.hasError('minlength')" class="error">
+            Password must be at least 8 characters
+          </small>
+
+          <small *ngIf="serverErrors['password']" class="error">
+            {{ serverErrors['password'] }}
+          </small>
+        </div>
+
+        <button type="submit" (click)="submitForm(loginForm)">Log in</button>
+      </form>
+
+      <div class="links">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+        <p>Don’t have an account? <a routerLink="/signup">Sign up</a></p>
       </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div class="login-page ">
+  <div class="overlay"></div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <h2 class="login-title">Login</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm)">
        
+        <!-- General Server Error -->
+        <div *ngIf="serverErrors['general']" class="error-text text-center">
+          {{ serverErrors['general'] }}
+        </div>
+
         <!-- Email Field -->
-        <div class="mb-4">
-          <label for="email" class="block text-[14px] font-medium text-gray-600 mb-1">Email</label>
-          <input id="email" type="text"  name="email" formControlName="email"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="text"
+            formControlName="email"
             placeholder="Enter your email"
           />
 
-                      <!-- Frontend Validation -->
-         <div *ngIf="submitted && loginForm.get('email')?.invalid">
-               <small *ngIf="loginForm.get('email')?.hasError('required')" class="text-sm text-red-600 mt-2 inline-block font-normal">Email is required</small>
-               <small *ngIf="loginForm.get('email')?.hasError('email')" class="text-sm text-red-600 mt-2 inline-block font-normal">Enter a valid email</small>
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)" class="error-text">
+            <small *ngIf="loginForm.get('email')?.hasError('required')">Email is required</small>
+            <small *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email</small>
           </div>
-
-                      <!-- Backend Validation -->
-         <div *ngIf="serverErrors?.['email']">
-             <small class="text-sm text-red-600 mt-2 inline-block font-normal">{{serverErrors['email']}}</small>
-         </div>
-
+          <div *ngIf="serverErrors['email']" class="error-text">
+            {{ serverErrors['email'] }}
+          </div>
         </div>
-  
-  
+
         <!-- Password Field -->
-        <div class="mb-6">
-          <label for="password" class="block text-[14px]  font-medium text-gray-600 mb-1">Password</label>
-          <input  id="password" type="password" name="password" formControlName="password"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
             placeholder="Enter your password"
           />
-           
-                    <!-- Frontend Validation -->
-        <div *ngIf="submitted && loginForm.get('password')?.invalid">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="loginForm.get('password')?.hasError('required')">Password is required</small>
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</small>
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)" class="error-text">
+            <small *ngIf="loginForm.get('password')?.hasError('required')">Password is required</small>
+            <small *ngIf="loginForm.get('password')?.hasError('minlength')">
+              Password must be at least 8 characters
+            </small>
+          </div>
+          <div *ngIf="serverErrors['password']" class="error-text">
+            {{ serverErrors['password'] }}
+          </div>
         </div>
 
-         <!-- Backend Validation -->
-        <div  *ngIf="serverErrors?.['password']">
-           <small class="text-sm text-red-600 mt-2 inline-block font-normal" >{{serverErrors['password']}}</small>
-        </div>
-
-        </div>
-  
-
-        <!-- Login Button -->
-        <button
-        (click)="submitForm(loginForm)"
-          type="submit"
-          class="w-full py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-300"
-        >
-        Log in
+        <button type="submit"  class="login-btn">
+          Log In
         </button>
       </form>
-  
-      <!-- Forgot Password Link -->
-<div class="mt-4 text-center">
-  <a
-    routerLink="/forgot-password"
-    class="text-[14px] text-blue-500 hover:text-blue-700 font-medium transition-colors duration-300"
-  >
-    Forgot Password?
-  </a>
-</div>
 
-  
-      <!-- Additional Section -->
-      <div  class="mt-4 text-center">
-          <p class="text-[14px] text-gray-600">
-            Dont have an account?
-            <a 
-            routerLink="/signup"
-              class="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-300 cursor-pointer"
-            >
-            Sign up
-            </a>
-          </p>
-        </div>
+      <div class="links">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+        <p>
+          Don’t have an account?
+          <a routerLink="/signup">Sign up</a>
+        </p>
+      </div>
     </div>
   </div>
-  
-
 </div>

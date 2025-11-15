@@ -1,95 +1,99 @@
+<div class="signup-page">
+  <div class="overlay"></div>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-200">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-4/5 max-w-md ">
-      <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center ">Signup</h2>
-      <form [formGroup]="signupForm">
-        <!-- Username Field -->
-        <div class="mb-4">
-          <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Username</label>
-          <input id="username" type="text"  name="username" formControlName="username"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+  <div class="signup-container">
+    <div class="signup-card">
+      <h2 class="signup-title">Create Account</h2>
+
+      <form [formGroup]="signupForm" (ngSubmit)="submitForm(signupForm)">
+        <!-- General Error -->
+        <div *ngIf="serverErrors['general']" class="error-text text-center">
+          {{ serverErrors['general'] }}
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
             placeholder="Enter your username"
           />
-
-            <!-- Frontend Validation -->
-          <div *ngIf="submitted && signupForm.get('username')?.invalid">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="signupForm.get('username')?.hasError('required')">Username is required</small>
+          <div
+            *ngIf="(signupForm.get('username')?.touched || submitted) && signupForm.get('username')?.invalid"
+            class="error-text"
+          >
+            <small *ngIf="signupForm.get('username')?.hasError('required')">
+              Username is required
+            </small>
           </div>
-
-            <!-- Backend Validation -->
-          <div  *ngIf="serverErrors?.['username']">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" >{{serverErrors['username']}}</small>
+          <div *ngIf="serverErrors['username']" class="error-text">
+            {{ serverErrors['username'] }}
           </div>
-
         </div>
-  
-        <!-- Email Field -->
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Email</label>
-          <input id="email" type="email" name="email" formControlName="email"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
             placeholder="Enter your email"
           />
-
-            <!-- Frontend Validation -->
-          <div *ngIf="submitted && signupForm.get('email')?.invalid">
-            <small *ngIf="signupForm.get('email')?.hasError('required')" class="text-sm text-red-600 mt-2 inline-block font-normal">Email is required</small>
-            <small *ngIf="signupForm.get('email')?.hasError('email')" class="text-sm text-red-600 mt-2 inline-block font-normal">Enter a valid email</small>
+          <div
+            *ngIf="(signupForm.get('email')?.touched || submitted) && signupForm.get('email')?.invalid"
+            class="error-text"
+          >
+            <small *ngIf="signupForm.get('email')?.hasError('required')">
+              Email is required
+            </small>
+            <small *ngIf="signupForm.get('email')?.hasError('email')">
+              Enter a valid email
+            </small>
           </div>
-
-            <!-- Backend Validation -->
-          <div  *ngIf="serverErrors?.['email']">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal">{{serverErrors['email']}}</small>
+          <div *ngIf="serverErrors['email']" class="error-text">
+            {{ serverErrors['email'] }}
           </div>
-
         </div>
-  
-  
-        <!-- Password Field -->
-        <div class="mb-6">
-          <label for="password" class="block text-sm font-medium text-gray-600 mb-1">Password</label>
-          <input  id="password" type="password" name="password" formControlName="password"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
             placeholder="Enter your password"
           />
-          
-          <!-- Frontend Validation -->
-          <div *ngIf="submitted && signupForm.get('password')?.invalid">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="signupForm.get('password')?.hasError('required')">Password is required</small>
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" *ngIf="signupForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</small>
+          <div
+            *ngIf="(signupForm.get('password')?.touched || submitted) && signupForm.get('password')?.invalid"
+            class="error-text"
+          >
+            <small *ngIf="signupForm.get('password')?.hasError('required')">
+              Password is required
+            </small>
+            <small *ngIf="signupForm.get('password')?.hasError('minlength')">
+              Password must be at least 8 characters
+            </small>
           </div>
-  
-            <!-- Backend Validation -->
-          <div  *ngIf="serverErrors?.['password']">
-            <small class="text-sm text-red-600 mt-2 inline-block font-normal" >{{serverErrors['password']}}</small>
+          <div *ngIf="serverErrors['password']" class="error-text">
+            {{ serverErrors['password'] }}
           </div>
-
         </div>
-  
-        <!-- Login Button -->
-        <button
-        (click)="submitForm(signupForm)"
-          type="submit"
-          class="w-full py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-300"
-        >
-          Sign up
+
+        <button type="submit" class="signup-btn">
+          Sign Up
         </button>
       </form>
-  
-  
-      <!-- Additional Section -->
-      <div  class="mt-4 text-center">
-          <p class="text-sm text-gray-600">
-            Already have an account?
-            <a 
-            routerLink="/login"
-              class="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-300 cursor-pointer"
-            >
-            Log in
-            </a>
-          </p>
-        </div>
+
+      <div class="links">
+        <p>
+          Already have an account?
+          <a routerLink="/login">Log in</a>
+        </p>
+      </div>
     </div>
   </div>
-  
-
+</div>

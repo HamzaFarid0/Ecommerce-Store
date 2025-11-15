@@ -1,16 +1,22 @@
-.app-container {
+/* .app-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+    min-height: 100vh; 
   }
   main {
-    flex: 1; /* This allows the main content to grow and fill the remaining space */
+    flex: 1; 
   }
   
-  /* Ensure the footer does not stick to the top */
   app-footer {
-    margin-top: auto; /* Push the footer to the bottom of the page */
-  }
+    margin-top: auto; 
+  } */
+
+  app-banner-two {
+  display: block;
+  width: 100%;
+  margin-top: 50px;
+}
+
 
   @media (max-width : 700px) {
     h1{
@@ -35,3 +41,4 @@
     padding:0px 10px;
   }
   }
+

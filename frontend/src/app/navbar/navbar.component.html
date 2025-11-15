@@ -24,8 +24,9 @@
           👤 {{user.username}} ▼
         </button>
         <div class="dropdown" *ngIf="dropdownOpen">
-
+          <a style="cursor: pointer;" routerLink="/orders" >My Orders</a>
           <a style="cursor: pointer;" (click)="logout()">Logout</a>
+       
         </div>
       </div>
       
