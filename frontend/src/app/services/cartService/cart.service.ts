@@ -9,7 +9,7 @@ import { Cart, CartResponse } from 'src/app/models/cart.model';
 })
 export class CartService {
 
-  totalQuantitySubject = new BehaviorSubject<number>(0);
+  totalQuantitySubject = new BehaviorSubject<number>( Number(localStorage.getItem('totalQuantity')) || 0);
   totalQuantity$ = this.totalQuantitySubject.asObservable()
 
   private _apiUrl = 'http://localhost:5000/api/cart';

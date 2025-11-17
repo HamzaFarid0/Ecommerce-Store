@@ -1,4 +1,4 @@
-<header>
+ <!-- <header>
     <div id="header">
       <div class="header-logo">
         <a routerLink="/" ><img style=" height: 45px;"  src="assets/images/logo-21.png" alt="" /></a>
@@ -29,8 +29,236 @@
        
         </div>
       </div>
-      
 
 
     </div>
-  </header>
+  </header>   -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<header>
+  <div id="header">
+    <div class="header-logo">
+      <a routerLink="/">
+        <img src="assets/images/logo-21.png" alt="Company Logo" />
+      </a>
+    </div>
+
+  
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="header-content" [class.mobile-open]="mobileMenuOpen">
+      <div class="header-list">
+        <nav class="header-list-nav">
+          <ul>
+            <li>
+              <a routerLink="/home" 
+                 routerLinkActive="active" 
+                 [routerLinkActiveOptions]="{ exact: true }"
+                 (click)="closeMobileMenu()">
+                Home
+              </a>
+            </li>
+            <li>
+              <a routerLink="/shop" 
+                 routerLinkActive="active"
+                 (click)="closeMobileMenu()">
+                Shop
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="header-list-icon" routerLink="/cart" (click)="closeMobileMenu()">
+            <fa-icon class="cart-icon" [icon]="cartIcon"></fa-icon>
+            <span class="badge">{{totalQuantity}}</span>
+          </div>
+
+          <div *ngIf="user$ | async as user" class="user-menu">
+            <button class="user-toggle" (click)="toggleDropdown()" aria-expanded="dropdownOpen">
+              <div class="user-avatar">
+                {{user.username.charAt(0).toUpperCase()}}
+              </div>
+              <span class="username">{{user.username}}</span>
+              <fa-icon class="dropdown-arrow" [icon]="dropdownIcon"></fa-icon>
+            </button>
+            <div class="dropdown" [class.show]="dropdownOpen">
+              <a class="dropdown-item" routerLink="/orders" (click)="closeDropdowns()">
+                <fa-icon class="dropdown-icon" [icon]="ordersIcon"></fa-icon>
+                My Orders
+              </a>
+              <a class="dropdown-item" (click)="logout(); closeDropdowns()">
+                <fa-icon class="dropdown-icon" [icon]="logoutIcon"></fa-icon>
+                Logout
+              </a>
+            </div>
+          </div>
+
+          <div *ngIf="!(user$ | async)" class="auth-buttons">
+            <a routerLink="/login" class="login-btn" (click)="closeMobileMenu()">Login</a>
+            <a routerLink="/register" class="register-btn" (click)="closeMobileMenu()">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="backdrop" 
+         [class.show]="mobileMenuOpen" 
+         (click)="closeMobileMenu()">
+    </div>
+  </div>
+</header> -->
+
+
+
+
+
+
+
+
+
+<header>
+  <div id="header">
+    <div class="header-logo">
+      <a routerLink="/">
+        <img src="assets/images/logo-21.png" alt="Company Logo" />
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="header-content" [class.mobile-open]="mobileMenuOpen">
+      <div class="header-list">
+        <!-- User Info for Mobile -->
+        <div *ngIf="user$ | async as user" class="mobile-user-info mobile-only">
+          <div class="user-avatar-large">
+            {{user.username.charAt(0).toUpperCase()}}
+          </div>
+          <div class="user-details">
+            <div class="username-large">{{user.username}}</div>
+            
+          </div>
+        </div>
+
+        <nav class="header-list-nav">
+          <ul>
+            <li>
+              <a routerLink="/home" 
+                 routerLinkActive="active" 
+                 [routerLinkActiveOptions]="{ exact: true }"
+                 (click)="closeMobileMenu()">
+              <i class="fa-solid fa-house nav-icon mobile-only"></i>
+              Home
+              </a>
+            </li>
+            <li>
+              <a routerLink="/shop" 
+                 routerLinkActive="active"
+                 (click)="closeMobileMenu()">
+                <i class="fa-brands fa-shopify nav-icon mobile-only"></i>
+                Shop
+              </a>
+            </li>
+            
+            <!-- Mobile only - Direct links for orders and logout -->
+            <li class="mobile-only">
+              <a routerLink="/cart" 
+                 routerLinkActive="active"
+                  
+                 (click)="closeMobileMenu()" class="cart-menu-item">
+                <fa-icon class="nav-icon" [icon]="cartIcon"></fa-icon>
+                Cart
+                <span class="mobile-badge">{{totalQuantity}}</span>
+              </a>
+            </li>
+            
+            <li *ngIf="user$ | async" class="mobile-only">
+              <a routerLink="/orders" 
+                 routerLinkActive="active"
+                 (click)="closeMobileMenu()">
+                <fa-icon class="nav-icon" [icon]="ordersIcon"></fa-icon>
+                My Orders
+              </a>
+            </li>
+            
+            <li *ngIf="user$ | async" class="mobile-only">
+              <a (click)="logout(); closeMobileMenu()" class="logout-link">
+                <fa-icon class="nav-icon" [icon]="logoutIcon"></fa-icon>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <!-- Desktop Cart -->
+          <div class="header-list-icon desktop-only" 
+            routerLink="/cart" routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: false }"
+              (click)="closeMobileMenu()">
+            <fa-icon class="cart-icon" [icon]="cartIcon"></fa-icon>
+            <span class="badge">{{totalQuantity}}</span>
+          </div>
+
+          <!-- Desktop User Menu -->
+          <div *ngIf="user$ | async as user" class="user-menu desktop-only">
+            <button class="user-toggle" (click)="toggleDropdown()" aria-expanded="dropdownOpen">
+              <div class="user-avatar">
+                {{user.username.charAt(0).toUpperCase()}}
+              </div>
+              <span class="username">{{user.username}}</span>
+              <fa-icon class="dropdown-arrow" [icon]="dropdownIcon"></fa-icon>
+            </button>
+            <div class="dropdown" [class.show]="dropdownOpen">
+              <a class="dropdown-item" routerLink="/orders" (click)="closeDropdowns()">
+                <fa-icon class="dropdown-icon" [icon]="ordersIcon"></fa-icon>
+                My Orders
+              </a>
+              <a class="dropdown-item" (click)="logout(); closeDropdowns()">
+                <fa-icon class="dropdown-icon" [icon]="logoutIcon"></fa-icon>
+                Logout
+              </a>
+            </div>
+          </div>
+
+          <div *ngIf="!(user$ | async)" class="auth-buttons desktop-only">
+            <a routerLink="/login" class="login-btn" (click)="closeMobileMenu()">Login</a>
+            <a routerLink="/register" class="register-btn" (click)="closeMobileMenu()">Register</a>
+          </div>
+
+          <!-- Mobile Auth Buttons -->
+          <div *ngIf="!(user$ | async)" class="auth-buttons mobile-only">
+            <a routerLink="/login" class="login-btn mobile-auth-btn" (click)="closeMobileMenu()">Login</a>
+            <a routerLink="/register" class="register-btn mobile-auth-btn" (click)="closeMobileMenu()">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backdrop for mobile -->
+    <div class="backdrop" 
+         [class.show]="mobileMenuOpen" 
+         (click)="closeMobileMenu()">
+    </div>
+  </div>
+</header>

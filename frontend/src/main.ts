@@ -6,11 +6,19 @@ import { NgToastModule } from 'ng-angular-popup';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes,
+
+     withInMemoryScrolling({
+    scrollPositionRestoration: 'top',
+    anchorScrolling: 'enabled'
+  })
+   
+
+    ),
     provideHttpClient(),    
     importProvidersFrom(
       NgToastModule,
